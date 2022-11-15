@@ -7,7 +7,7 @@ import cors from "cors"
 import { setupRoutes } from './routes';
 import { db } from './database/database';
 import morganMiddleware from './middlewares/morganMiddleware';
-import Logger from '../config/logger';
+import Logger from './database/logger';
 
 async function main() {
     const app = express();

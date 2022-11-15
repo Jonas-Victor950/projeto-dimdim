@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { CadastradoInterface } from "../interfaces/CadastradoInterface"
 import CadastradoService from "../services/CadastradoService"
-import Logger from "../../config/logger";
+import Logger from "../database/logger";
 
 class CadastradoController {
     static async allCadastrados(req: Request, res: Response) {
