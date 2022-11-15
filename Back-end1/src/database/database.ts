@@ -1,11 +1,12 @@
 import { Sequelize } from "sequelize"
+import authDB from "./default"
 
 export const db: Sequelize = new Sequelize(
-    'dindin',
-    'root',
-    'lindo2849',
+    authDB.db,
+    authDB.user,
+    authDB.pass,
     {
-        host: '127.0.0.1',
+        host: authDB.host,
         dialect: 'mysql',
         logging: console.log 
     }
