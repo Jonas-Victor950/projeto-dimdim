@@ -6,14 +6,14 @@ import cors from "cors"
 
 import { setupRoutes } from './routes';
 import { db } from './database/database';
-import morganMiddleware from './middlewares/morganMiddleware';
+
 import Logger from './database/logger';
 
 async function main() {
     const app = express();
     const port = 3000;
 
-    app.use(morganMiddleware)
+    
     app.use(cors());
     app.use(express.json());
     setupRoutes(app);

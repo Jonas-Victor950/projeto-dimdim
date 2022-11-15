@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const CadastradoService_1 = __importDefault(require("../services/CadastradoService"));
 const logger_1 = __importDefault(require("../database/logger"));
+const messages_1 = __importDefault(require("../constants/messages"));
 class CadastradoController {
     static allCadastrados(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -36,7 +37,7 @@ class CadastradoController {
                 logger_1.default.error(`Pane no sistema: ${error.message}`);
                 return res
                     .status(500)
-                    .json({ success: false, msg: "✖️ Ops, deu ruim!" });
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -60,7 +61,7 @@ class CadastradoController {
                 logger_1.default.error(error);
                 return res
                     .status(500)
-                    .json({ success: false, msg: "✖️ Ops, deu ruim!" });
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -68,18 +69,18 @@ class CadastradoController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error("✖️ Não foi passado um ID válido!");
+                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Eita! Informe um ID válido!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
                 }
                 const cadastradoId = parseInt(req.params.id);
                 const cadastrado = yield CadastradoService_1.default.getOneCadastrado(cadastradoId);
                 if (!cadastrado) {
-                    logger_1.default.error("✖️ Cadastrado não encontrado!");
+                    logger_1.default.error(messages_1.default.ERROR.CADASTRADO_NOT_FOUND);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Cadastrado não encontrado!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.CADASTRADO_NOT_FOUND });
                 }
                 else {
                     logger_1.default.info("Mandando o cadastrado que foi pedido!");
@@ -90,7 +91,7 @@ class CadastradoController {
                 console.log(error);
                 return res
                     .status(500)
-                    .json({ success: false, msg: "✖️ Ops, deu ruim!" });
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -105,18 +106,18 @@ class CadastradoController {
             };
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error("✖️ Não foi passado um ID válido");
+                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Eita! Informe um ID válido!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
                 }
                 const cadastradoId = parseInt(req.params.id);
                 const cadastrado = yield CadastradoService_1.default.getOneCadastrado(cadastradoId);
                 if (!cadastrado) {
-                    logger_1.default.error("✖️ Não foi encontrado");
+                    logger_1.default.error(messages_1.default.ERROR.CADASTRADO_NOT_FOUND);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Cadastrado não encontrado!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.CADASTRADO_NOT_FOUND });
                 }
                 else {
                     const updatedCadastrado = yield CadastradoService_1.default.updateCadastrado(cadastradoId, cadastradoObj);
@@ -128,7 +129,7 @@ class CadastradoController {
                 logger_1.default.error(error);
                 return res
                     .status(500)
-                    .json({ success: false, msg: "✖️ Ops, deu ruim!" });
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -136,18 +137,18 @@ class CadastradoController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error("✖️ Não foi passado um ID válido");
+                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Eita! Informe um ID válido!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
                 }
                 const cadastradoId = parseInt(req.params.id);
                 const cadastrado = yield CadastradoService_1.default.getOneCadastrado(cadastradoId);
                 if (!cadastrado) {
-                    logger_1.default.error("✖️ Não foi encontrado");
+                    logger_1.default.error(messages_1.default.ERROR.CADASTRADO_NOT_FOUND);
                     return res
                         .status(500)
-                        .json({ success: false, msg: "✖️ Cadastrado não encontrado!" });
+                        .json({ success: false, msg: messages_1.default.ERROR.CADASTRADO_NOT_FOUND });
                 }
                 else {
                     yield CadastradoService_1.default.deleteCadastrado(cadastradoId);
@@ -159,7 +160,7 @@ class CadastradoController {
                 logger_1.default.error(error);
                 return res
                     .status(500)
-                    .json({ success: false, msg: `✖️ ${error}` });
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
