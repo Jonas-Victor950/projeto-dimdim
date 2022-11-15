@@ -1,8 +1,8 @@
-import { Sequelize } from "sequelize"
-import authDB from "./default"
+import { Sequelize } from "sequelize";
+import authDB from "./default";
 
 export const db: Sequelize = new Sequelize(
-    authDB.db,
+    authDB.database,
     authDB.user,
     authDB.pass,
     {
@@ -10,4 +10,4 @@ export const db: Sequelize = new Sequelize(
         dialect: 'mysql',
         logging: console.log 
     }
-)
+);

@@ -1,19 +1,14 @@
-import { Application } from 'express';
-import { Router } from './helpers/Router';
+import express from "express"
 import CadastradoController from './controllers/CadastradoController';
+import validacao from "./validations/cadastrados/create"
+const router = express.Router()
 
-export function setupRoutes(app: Application) {
-    const router = new Router(app);
+// Start of Routes
+router.get("/cadastrados/", CadastradoController.allCadastrados),
+router.post("/cadastrados/", validacao, CadastradoController.create);
+router.get("/cadastrados/:id", CadastradoController.getOne);
+router.delete("/cadastrados/:id", CadastradoController.delete);
+router.put("/cadastrados/:id", validacao, CadastradoController.update)
+// End of Routes
 
-    router.get("/", () => {
-        return "Buenos, quer ver os cadastrados?"
-    });
-
-    router.group( "/cadastrados", (router) => {
-        router.get("/", CadastradoController.allCadastrados);
-        router.post("/", CadastradoController.create);
-        router.get("/:id", CadastradoController.getOne);
-        router.delete("/:id", CadastradoController.delete);
-        router.put("/:id", CadastradoController.update)
-    })
-}
+export default router

@@ -41,4 +41,5 @@ class CadastradoRepository {
         });
     }
 }
+;
 exports.default = new CadastradoRepository();

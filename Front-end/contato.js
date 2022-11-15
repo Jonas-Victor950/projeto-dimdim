@@ -18,8 +18,9 @@ async function creatPerson() {
             body: JSON.stringify(arrayCreate),
         }) 
         const dates = await sending.json();
-        alert(`Parabéns ${arrayCreate.name}, você foi cadastrado`)
        }
+       
+       
     } catch (error) {
         console.log(error)
     }

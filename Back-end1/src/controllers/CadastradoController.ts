@@ -5,10 +5,10 @@ import Logger from "../database/logger";
 import MESSAGE from "../constants/messages";
 
 class CadastradoController {
-    static async allCadastrados(req: Request, res: Response) {
+
+    static async allCadastrados (req: Request, res: Response) {
 
         try{
-            
             const cadastrados: Array<CadastradoInterface>  = await CadastradoService.getCadastrados();
         
             if (cadastrados.length <= 0) {
@@ -16,25 +16,23 @@ class CadastradoController {
                 return res
                     .status( 500)
                     .json({success: false, msg: "⚠️ Nenhum cadastrado até o momento."});
-            }
-            else{
-                Logger.info("✔️ Cadastrados encontrados com sucesso!")
+            } else {
+                Logger.info("✔️ Cadastrados encontrados com sucesso!");
                 return res 
                     .status(200)
-                    .json({success: true, msg: "✔️ Cadastrados encontrados com sucesso!", data: cadastrados})
-            }
-        } catch (error: any){
-            Logger.error(`Pane no sistema: ${error.message}`)
+                    .json({success: true, msg: "✔️ Cadastrados encontrados com sucesso!", data: cadastrados});
+            };
+        } catch (error: any) {
+            Logger.error(`Pane no sistema: ${error.message}`);
             return res
                 .status(500)
                 .json({success: false, msg: MESSAGE.ERROR.ERROR_CATCH})
         }
     }
 
-    static async create(req: Request, res: Response) {
+    static async create (req: Request, res: Response) {
         const payload: any = req.body;
         console.log(payload);
-
         const cadastradoObj: CadastradoInterface = {
             name: payload.name,
             email: payload.email,
@@ -42,10 +40,9 @@ class CadastradoController {
         };
 
         try {
-            
             const cadastrado = await CadastradoService.createCadastrado(cadastradoObj);
 
-            Logger.info("✔️ Cadastrado criado com sucesso!")
+            Logger.info("✔️ Cadastrado criado com sucesso!");
             return res
                 .status(200)
                 .json({ success: true, msg: "✔️ Cadastrado criado com sucesso!", data: cadastrado });
@@ -53,15 +50,14 @@ class CadastradoController {
             Logger.error(error)
             return res
                 .status(500)
-                .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH})
+                .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH}); 
         }
     }
 
-    static async getOne(req: Request, res: Response) {
+    static async getOne (req: Request, res: Response) {
         try {
-
             if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                Logger.error(MESSAGE.ERROR.NOT_VALID_ID)
+                Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
                 return res
                     .status(500)
                     .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
@@ -71,13 +67,12 @@ class CadastradoController {
             const cadastrado = await CadastradoService.getOneCadastrado(cadastradoId);
 
             if (!cadastrado) {
-                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND)
+                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
                 return res
                 .status(500)
-                .json({ success: false, msg: MESSAGE.ERROR.CADASTRADO_NOT_FOUND })
-            }
-            else{
-                Logger.info("Mandando o cadastrado que foi pedido!")
+                .json({ success: false, msg: MESSAGE.ERROR.CADASTRADO_NOT_FOUND });
+            } else {
+                Logger.info("Mandando o cadastrado que foi pedido!");
                 return res.json({ success: true, data: cadastrado })
             }
 
@@ -89,11 +84,9 @@ class CadastradoController {
         }
     }
 
-    static async update(req: Request, res: Response) {
-
+    static async update (req: Request, res: Response) {
         const payload: any = req.body;
         console.log(payload);
-
         const cadastradoObj: CadastradoInterface = {
             name: payload.name,
             email: payload.email,
@@ -101,27 +94,25 @@ class CadastradoController {
         };
 
         try {
-
             if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                Logger.error(MESSAGE.ERROR.NOT_VALID_ID)
+                Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
                 return res
                     .status(500)
                     .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
             }
 
             const cadastradoId: number = parseInt(req.params.id);
-            const cadastrado = await CadastradoService.getOneCadastrado(cadastradoId)
+            const cadastrado = await CadastradoService.getOneCadastrado(cadastradoId);
 
             if (!cadastrado) {
-                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND)
+                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
                 return res
                 .status(500)
                 .json({ success: false, msg:MESSAGE.ERROR.CADASTRADO_NOT_FOUND});
-            }
-            else{
+            } else {
                 const updatedCadastrado = await CadastradoService.updateCadastrado(cadastradoId,cadastradoObj);
 
-                Logger.info("✔️ Cadastrado atualizado com sucesso!")
+                Logger.info("✔️ Cadastrado atualizado com sucesso!");
                 return res.status(200).json({ success: true, msg: "✔️ Cadastrado atualizado com sucesso!", data: cadastradoObj });
             }
         } catch (error) {
@@ -132,11 +123,10 @@ class CadastradoController {
         }
     }
 
-    static async delete(req: Request, res: Response) {
+    static async delete (req: Request, res: Response) {
         try {
-            
             if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                Logger.error(MESSAGE.ERROR.NOT_VALID_ID)
+                Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
                 return res
                     .status(500)
                     .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
@@ -146,15 +136,14 @@ class CadastradoController {
             const cadastrado = await CadastradoService.getOneCadastrado(cadastradoId);
 
             if (!cadastrado) {
-                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND)
+                Logger.error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
                 return res
                 .status(500)
                 .json({ success: false, msg: MESSAGE.ERROR.CADASTRADO_NOT_FOUND });
-            }
-            else {
-            await CadastradoService.deleteCadastrado(cadastradoId)
+            } else {
+            await CadastradoService.deleteCadastrado(cadastradoId);
 
-            Logger.info("✔️ Cadastrado excluído com sucesso!")
+            Logger.info("✔️ Cadastrado excluído com sucesso!");
             return res.status(200).json({ success: true, msg: "✔️ Cadastrado excluído com sucesso!" });
             }
         } catch (error) {

@@ -1,6 +1,4 @@
 import winston from "winston";
-import config from "config"
-import { info } from "console";
 
 const levels = {
     error: 0,
@@ -8,8 +6,7 @@ const levels = {
     info: 2,
     http: 3,
     debug: 4
-}
-
+};
 
 const colors = {
     error: "red",
@@ -17,7 +14,7 @@ const colors = {
     info: "green",
     http: "magenta",
     debug: "white"
-}
+};
 
 winston.addColors(colors);
 
@@ -36,7 +33,7 @@ const transports = [
         level: "error"
     }),
     new winston.transports.File({ filename: "logs/all.log"})
-]
+];
 
 const Logger = winston.createLogger({
     levels,

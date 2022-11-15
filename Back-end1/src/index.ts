@@ -1,22 +1,22 @@
 // ENV variable
-require("dotenv").config()
+require("dotenv").config();
 
+import handleError from './middlewares/handleError';
 import  express  from 'express';
-import cors from "cors"
-
-import { setupRoutes } from './routes';
+import cors from "cors";
+import router from './routes';
 import { db } from './database/database';
-
 import Logger from './database/logger';
 
 async function main() {
     const app = express();
     const port = 3000;
 
-    
     app.use(cors());
     app.use(express.json());
-    setupRoutes(app);
+    app.use(router);
+    app.use(handleError);
+    
 
     app.listen(port, async () => {
 
@@ -30,7 +30,7 @@ async function main() {
                 Logger.error(`😕 Falha ao conectar ao banco de dados.`);
             });        
     });
-}
+};
 
 main().catch((error) => {
     Logger.error("🥵 Erro!");

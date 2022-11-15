@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const messages_1 = __importDefault(require("../constants/messages"));
 const CadastradoRepository_1 = __importDefault(require("../repositories/CadastradoRepository"));
 class CadastradoService {
     getCadastrados() {
@@ -34,9 +35,10 @@ class CadastradoService {
         return __awaiter(this, void 0, void 0, function* () {
             const cadastrado = yield CadastradoRepository_1.default.getOneCadastrado(cadastradoId);
             if (!cadastrado)
-                throw new Error("Cadastrado não encontrado!");
+                throw new Error(messages_1.default.ERROR.CADASTRADO_NOT_FOUND);
             return CadastradoRepository_1.default.deleteCadastrado(cadastradoId);
         });
     }
 }
+;
 exports.default = new CadastradoService();

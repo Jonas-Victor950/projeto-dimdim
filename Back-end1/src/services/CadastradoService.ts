@@ -1,3 +1,4 @@
+import MESSAGE from "../constants/messages";
 import { CadastradoInterface } from "../interfaces/CadastradoInterface";
 import CadastradoRepository from "../repositories/CadastradoRepository"
 
@@ -23,10 +24,10 @@ class CadastradoService {
     async deleteCadastrado(cadastradoId: number): Promise<any> {
         const cadastrado = await CadastradoRepository.getOneCadastrado(cadastradoId);
 
-        if(!cadastrado) throw new Error("Cadastrado não encontrado!");
+        if(!cadastrado) throw new Error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
 
         return CadastradoRepository.deleteCadastrado(cadastradoId)
     }
-}
+};
 
 export default new CadastradoService();

@@ -42,7 +42,6 @@ class CadastradoRepository {
             }
         })
     }
-
-}
+};
 
 export default new CadastradoRepository();

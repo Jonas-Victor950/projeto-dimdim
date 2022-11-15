@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // ENV variable
 require("dotenv").config();
+const handleError_1 = __importDefault(require("./middlewares/handleError"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const routes_1 = require("./routes");
+const routes_1 = __importDefault(require("./routes"));
 const database_1 = require("./database/database");
 const logger_1 = __importDefault(require("./database/logger"));
 function main() {
@@ -25,7 +26,8 @@ function main() {
         const port = 3000;
         app.use((0, cors_1.default)());
         app.use(express_1.default.json());
-        (0, routes_1.setupRoutes)(app);
+        app.use(routes_1.default);
+        app.use(handleError_1.default);
         app.listen(port, () => __awaiter(this, void 0, void 0, function* () {
             logger_1.default.info(`🚀 Projeto rodando no endereço: http://127.0.0.1:${port}`);
             database_1.db.authenticate()
@@ -38,6 +40,7 @@ function main() {
         }));
     });
 }
+;
 main().catch((error) => {
     logger_1.default.error("🥵 Erro!");
     logger_1.default.error(error);

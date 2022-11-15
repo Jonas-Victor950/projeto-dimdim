@@ -32,6 +32,7 @@ class CadastradoController {
                         .status(200)
                         .json({ success: true, msg: "✔️ Cadastrados encontrados com sucesso!", data: cadastrados });
                 }
+                ;
             }
             catch (error) {
                 logger_1.default.error(`Pane no sistema: ${error.message}`);
