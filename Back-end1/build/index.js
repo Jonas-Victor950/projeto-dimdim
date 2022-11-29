@@ -17,8 +17,8 @@ require("dotenv").config();
 const handleError_1 = __importDefault(require("./middlewares/handleError"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const app_1 = __importDefault(require("./database/app"));
 const routes_1 = __importDefault(require("./routes"));
-const database_1 = require("./database/database");
 const logger_1 = __importDefault(require("./database/logger"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -30,17 +30,10 @@ function main() {
         app.use(handleError_1.default);
         app.listen(port, () => __awaiter(this, void 0, void 0, function* () {
             logger_1.default.info(`🚀 Projeto rodando no endereço: http://127.0.0.1:${port}`);
-            database_1.db.authenticate()
-                .then(() => {
-                logger_1.default.info(`😄 Conectado com sucesso ao banco de dados!`);
-            })
-                .catch(err => {
-                logger_1.default.error(`😕 Falha ao conectar ao banco de dados.`);
-            });
+            app_1.default.createConection();
         }));
     });
 }
-;
 main().catch((error) => {
     logger_1.default.error("🥵 Erro!");
     logger_1.default.error(error);

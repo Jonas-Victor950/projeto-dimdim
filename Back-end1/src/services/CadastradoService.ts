@@ -1,33 +1,40 @@
 import MESSAGE from "../constants/messages";
 import { CadastradoInterface } from "../interfaces/CadastradoInterface";
-import CadastradoRepository from "../repositories/CadastradoRepository"
+import CadastradoRepository from "../repositories/CadastradoRepository";
 
 class CadastradoService {
-    getCadastrados(): Promise<Array<CadastradoInterface>> {
-        return CadastradoRepository.getCadastrados()
-    }
+  getCadastrados(): Promise<Array<CadastradoInterface>> {
+    return CadastradoRepository.getCadastrados();
+  }
 
-    createCadastrado(dados: CadastradoInterface){
-        if (!dados.name || !dados.email || !dados.message) throw new Error("Todos os campos são obrigatórios!");
-        return CadastradoRepository.createCadastrado(dados);
-    }
-    
-    getOneCadastrado(cadastradoId: number): Promise<any> {
-        return CadastradoRepository.getOneCadastrado(cadastradoId)
-    }
+  createCadastrado(dados: CadastradoInterface) {
+    if (!dados.name || !dados.email || !dados.message)
+      throw new Error("Todos os campos são obrigatórios!");
+    return CadastradoRepository.createCadastrado(dados);
+  }
 
-    updateCadastrado(cadastradoId: number, dados: CadastradoInterface): Promise<Array<any>> {
-        if (!dados.name || !dados.email || !dados.message) throw new Error("Todos os campos são obrigatórios!");
-        return CadastradoRepository.updateCadastrado(cadastradoId,dados)
-    }
+  getOneCadastrado(cadastradoId: number): Promise<any> {
+    return CadastradoRepository.getOneCadastrado(cadastradoId);
+  }
 
-    async deleteCadastrado(cadastradoId: number): Promise<any> {
-        const cadastrado = await CadastradoRepository.getOneCadastrado(cadastradoId);
+  updateCadastrado(
+    cadastradoId: number,
+    dados: CadastradoInterface
+  ): Promise<Array<any>> {
+    if (!dados.name || !dados.email || !dados.message)
+      throw new Error("Todos os campos são obrigatórios!");
+    return CadastradoRepository.updateCadastrado(cadastradoId, dados);
+  }
 
-        if(!cadastrado) throw new Error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
+  async deleteCadastrado(cadastradoId: number): Promise<any> {
+    const cadastrado = await CadastradoRepository.getOneCadastrado(
+      cadastradoId
+    );
 
-        return CadastradoRepository.deleteCadastrado(cadastradoId)
-    }
-};
+    if (!cadastrado) throw new Error(MESSAGE.ERROR.CADASTRADO_NOT_FOUND);
+
+    return CadastradoRepository.deleteCadastrado(cadastradoId);
+  }
+}
 
 export default new CadastradoService();

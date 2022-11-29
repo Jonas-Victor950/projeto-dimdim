@@ -30,9 +30,12 @@ class CadastradoController {
                     logger_1.default.info("✔️ Cadastrados encontrados com sucesso!");
                     return res
                         .status(200)
-                        .json({ success: true, msg: "✔️ Cadastrados encontrados com sucesso!", data: cadastrados });
+                        .json({
+                        success: true,
+                        msg: "✔️ Cadastrados encontrados com sucesso!",
+                        data: cadastrados,
+                    });
                 }
-                ;
             }
             catch (error) {
                 logger_1.default.error(`Pane no sistema: ${error.message}`);
@@ -49,14 +52,18 @@ class CadastradoController {
             const cadastradoObj = {
                 name: payload.name,
                 email: payload.email,
-                message: payload.message
+                message: payload.message,
             };
             try {
                 const cadastrado = yield CadastradoService_1.default.createCadastrado(cadastradoObj);
                 logger_1.default.info("✔️ Cadastrado criado com sucesso!");
                 return res
                     .status(200)
-                    .json({ success: true, msg: "✔️ Cadastrado criado com sucesso!", data: cadastrado });
+                    .json({
+                    success: true,
+                    msg: "✔️ Cadastrado criado com sucesso!",
+                    data: cadastrado,
+                });
             }
             catch (error) {
                 logger_1.default.error(error);
@@ -103,7 +110,7 @@ class CadastradoController {
             const cadastradoObj = {
                 name: payload.name,
                 email: payload.email,
-                message: payload.message
+                message: payload.message,
             };
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
@@ -123,7 +130,13 @@ class CadastradoController {
                 else {
                     const updatedCadastrado = yield CadastradoService_1.default.updateCadastrado(cadastradoId, cadastradoObj);
                     logger_1.default.info("✔️ Cadastrado atualizado com sucesso!");
-                    return res.status(200).json({ success: true, msg: "✔️ Cadastrado atualizado com sucesso!", data: cadastradoObj });
+                    return res
+                        .status(200)
+                        .json({
+                        success: true,
+                        msg: "✔️ Cadastrado atualizado com sucesso!",
+                        data: cadastradoObj,
+                    });
                 }
             }
             catch (error) {
@@ -154,7 +167,9 @@ class CadastradoController {
                 else {
                     yield CadastradoService_1.default.deleteCadastrado(cadastradoId);
                     logger_1.default.info("✔️ Cadastrado excluído com sucesso!");
-                    return res.status(200).json({ success: true, msg: "✔️ Cadastrado excluído com sucesso!" });
+                    return res
+                        .status(200)
+                        .json({ success: true, msg: "✔️ Cadastrado excluído com sucesso!" });
                 }
             }
             catch (error) {

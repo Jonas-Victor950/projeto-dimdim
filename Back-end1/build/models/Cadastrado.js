@@ -1,29 +1,40 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = require("../database/database");
-const sequelize_1 = require("sequelize");
-class Cadastrado extends sequelize_1.Model {
-}
-exports.default = Cadastrado;
-Cadastrado.init({
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    name: {
-        type: sequelize_1.DataTypes.STRING,
-    },
-    email: {
-        type: sequelize_1.DataTypes.STRING,
-    },
-    message: {
-        type: sequelize_1.DataTypes.STRING,
-    }
+const mongoose_1 = require("mongoose");
+const cadastradoSchema = new mongoose_1.Schema({
+    name: { type: String },
+    email: { type: String },
+    message: { type: String },
 }, {
-    modelName: 'cadastrados',
-    freezeTableName: true,
-    createdAt: false,
-    updatedAt: false,
-    sequelize: database_1.db
+    timestamps: true,
 });
+const Cadastrado = (0, mongoose_1.model)("Cadastrado", cadastradoSchema);
+exports.default = Cadastrado;
+// import { db } from "../database/Conection";
+// import { Model, DataTypes, Sequelize} from "sequelize";
+// export default class Cadastrado extends Model {}
+// Cadastrado.init(
+//     {
+//         id: {
+//             type: DataTypes.INTEGER,
+//             primaryKey: true,
+//             autoIncrement: true,
+//         },
+//         name: {
+//             type: DataTypes.STRING,
+//         },
+//         email: {
+//             type: DataTypes.STRING,
+//         },
+//         message: {
+//             type: DataTypes.STRING,
+//         }
+//     },
+//     {
+//         modelName: 'cadastrados',
+//         freezeTableName: true,
+//         createdAt: false,
+//         updatedAt: false,
+//         sequelize: db
+//     }
+// );

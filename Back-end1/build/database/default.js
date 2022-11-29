@@ -6,6 +6,6 @@ const authDB = {
     database: process.env.DB_NAME,
     user: process.env.DB_USER,
     pass: process.env.DB_PASS,
-    env: "development"
+    env: "development",
 };
 exports.default = authDB;

@@ -1,45 +1,42 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Cadastrado_1 = __importDefault(require("../models/Cadastrado"));
+const models_1 = require("../models");
 class CadastradoRepository {
     getCadastrados() {
-        return Cadastrado_1.default.findAll();
+        const findAll = models_1.Cadastrado.find();
+        return findAll;
     }
     createCadastrado(dados) {
-        return Cadastrado_1.default.create({
+        return models_1.Cadastrado.create({
             name: dados.name,
             email: dados.email,
-            message: dados.message
+            message: dados.message,
         });
     }
     getOneCadastrado(cadastradoId) {
-        return Cadastrado_1.default.findOne({
+        return models_1.Cadastrado.findOne({
             where: {
-                id: cadastradoId
-            }
+                _id: cadastradoId,
+            },
         });
     }
     deleteCadastrado(cadastradoId) {
-        return Cadastrado_1.default.destroy({
+        return models_1.Cadastrado.deleteOne({
             where: {
-                id: cadastradoId
-            }
+                _id: cadastradoId,
+            },
         });
     }
     updateCadastrado(cadastradoId, dados) {
-        return Cadastrado_1.default.update({
+        return models_1.Cadastrado.updateOne({
+            where: {
+                _id: cadastradoId,
+            },
+        }, {
             name: dados.name,
             email: dados.email,
-            message: dados.message
-        }, {
-            where: {
-                id: cadastradoId
-            }
+            message: dados.message,
         });
     }
 }
-;
 exports.default = new CadastradoRepository();

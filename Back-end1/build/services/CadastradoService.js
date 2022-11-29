@@ -40,5 +40,4 @@ class CadastradoService {
         });
     }
 }
-;
 exports.default = new CadastradoService();
