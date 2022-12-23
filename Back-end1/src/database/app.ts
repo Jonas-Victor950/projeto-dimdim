@@ -1,5 +1,12 @@
 import Conection from "./Conection";
+import mongoose from 'mongoose';
+import authDB from './default';
 
-const mongoDB = new Conection("mongodb://localhost:27017/dindin");
+mongoose.connect(
+  `mongodb+srv://${authDB.user}:${authDB.pass}@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority`
+);
+const mongoDB = new Conection(
+  `mongodb+srv://${authDB.user}:${authDB.pass}@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority`
+);
 
 export default mongoDB;
