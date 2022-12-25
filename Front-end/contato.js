@@ -9,7 +9,7 @@ async function creatPerson() {
        const response = confirm(`Deseja enviar o cadastro?`)
        if(response){ 
        const sending = await fetch(
-        "http://127.0.0.1:3000/cadastrados",
+        "http://18.230.130.136:3000/cadastrados",
         {
             method: "POST",
             headers: {
