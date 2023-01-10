@@ -2,7 +2,7 @@ import { CadastradoInterface } from "./../interfaces/CadastradoInterface";
 import { Cadastrado } from "../models";
 
 class CadastradoRepository {
-  getCadastrados(): Promise<Array<any>> {
+  getCadastrados(){
     const findAll = Cadastrado.find();
     return findAll;
   }
@@ -15,7 +15,7 @@ class CadastradoRepository {
     });
   }
 
-  getOneCadastrado(cadastradoId: number): Promise<any | null> {
+  getOneCadastrado(cadastradoId: number){
     return Cadastrado.findOne({
       where: {
         _id: cadastradoId,
@@ -23,7 +23,7 @@ class CadastradoRepository {
     });
   }
 
-  deleteCadastrado(cadastradoId: number): Promise<any> {
+  deleteCadastrado(cadastradoId: number){
     return Cadastrado.deleteOne({
       where: {
         _id: cadastradoId,
@@ -34,7 +34,7 @@ class CadastradoRepository {
   updateCadastrado(
     cadastradoId: number,
     dados: CadastradoInterface
-  ): Promise<Array<any>> {
+  ){
     return Cadastrado.updateOne(
       {
         where: {
